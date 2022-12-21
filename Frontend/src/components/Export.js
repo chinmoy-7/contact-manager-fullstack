@@ -7,6 +7,7 @@ const Export = ()=>{
         let data = new FormData();
         data.append('contact',file[0])
         const res=axios.post("http://localhost:3004/upload",data)
+        window.location.reload(false)
         console.log(file)
         // setFile(null);
     }
