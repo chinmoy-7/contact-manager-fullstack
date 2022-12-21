@@ -34,16 +34,7 @@ router.post("/upload",upload.single("contact"),(req,res)=>{
     }
 })
 
-router.get("/get",async (req,res)=>{
-    try{
-        const users =await  contact.find();
-        res.status(200).json(users);
-    }catch(e){
-        res.status(400).json({
-            message:e.message
-        })
-    }
-})
+
 
 router.delete("/del/:id",async (req,res)=>{
     try{
