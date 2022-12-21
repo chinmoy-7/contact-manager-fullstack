@@ -4,6 +4,10 @@ const dotenv = require("dotenv")
 const cors= require("cors")
 const route  = require("./Routes/route")
 const connectDB=require("./connectDB/connect");
+
+const login = require("./Routes/login")
+
+
 const getContacts=require("./Routes/getContacts")
 const searchContacts=require("./Routes/search")
 
@@ -13,6 +17,8 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use("/",route);
+app.use("/",login)
 app.use("/",route)
 app.use("/getContacts",getContacts);
 app.use("/search",searchContacts);
