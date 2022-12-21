@@ -3,14 +3,17 @@ const Contacts=require("../Models/contacts")
 const Auth=require("../Middlewear/authentication")
 
 router.get("/:email",async(req,res)=>{
-    try{
-        const Contact=await Contacts.findOne({email:req.params.email});
+    try{ 
+      var email = req.params.email;
+      var name = email.substring(0, email.lastIndexOf("@"));
+      console.log(name);
+        const Contact=await Contacts.findOne({email:{$regex:name,$options:'i'}});
         
           
             res.status(200).json(Contact);
         
-    }catch{
-            res.status(404).json("email not found");
+    }catch(e){
+            res.status(404).json(e.message);
     }
 })
 
