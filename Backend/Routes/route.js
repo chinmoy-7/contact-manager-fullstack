@@ -4,9 +4,9 @@ const upload = require("../Middlewear/middle")
 const contact= require("../Models/contacts")
 const fs = require("fs");
 
-router.get("/",(req,res)=>{
-    res.send("Working");
-})
+// router.get("/",(req,res)=>{
+//     res.send("Working");
+// })
 
 //Inserting the csv
 router.post("/upload",upload.single("contact"),(req,res)=>{
