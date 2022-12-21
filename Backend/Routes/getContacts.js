@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const Contacts=require("../Models/contacts")
+const Contacts=require("../Models/contacts");
+
 
 router.get("/",async(req,res)=>{
     try{
