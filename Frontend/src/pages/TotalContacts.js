@@ -24,7 +24,7 @@ const TotalContact = ()=>{
 
     //Fetching data
     const getData=async ()=>{
-        const user = await axios.get("http://localhost:3004/get").then((res)=>{
+        const user = await axios.get("http://localhost:3004/getContacts").then((res)=>{
           return res
         });
         setUsers(user);

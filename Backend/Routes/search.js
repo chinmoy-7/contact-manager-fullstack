@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const Contacts=require("../Models/contacts")
-const Auth=require("../Middlewear/authentication")
+const auth=require("../Middlewear/authentication")
 
-router.get("/:email",async(req,res)=>{
+router.get("/:email",auth,async(req,res)=>{
     try{ 
       var email = req.params.email;
       var name = email.substring(0, email.lastIndexOf("@"));
