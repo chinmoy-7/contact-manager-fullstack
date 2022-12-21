@@ -3,13 +3,14 @@ const csvtojson =require("csvtojson");
 const upload = require("../Middlewear/middle")
 const contact= require("../Models/contacts")
 const fs = require("fs");
+const Auth = require("../Middlewear/authentication")
 
 // router.get("/",(req,res)=>{
 //     res.send("Working");
 // })
 
 //Inserting the csv
-router.post("/upload",upload.single("contact"),(req,res)=>{
+router.post("/upload",Auth,upload.single("contact"),(req,res)=>{
     try{
        
         csvtojson().fromFile("public/contact.csv")
