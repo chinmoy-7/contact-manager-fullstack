@@ -2,7 +2,7 @@ const router = require("express").Router();
 const csvtojson =require("csvtojson");
 const upload = require("../Middlewear/middle")
 const contact= require("../Models/contacts")
-
+const auth = require ("../Middlewear/authentication")
 const fs = require("fs");
 
 // router.get("/",(req,res)=>{
@@ -28,17 +28,6 @@ router.post("/upload",upload.single("contact"),(req,res)=>{
                 })
             })
         })
-    }catch(e){
-        res.status(400).json({
-            message:e.message
-        })
-    }
-})
-
-router.get("/get",async (req,res)=>{
-    try{
-        const users =await  contact.find();
-        res.status(200).json(users);
     }catch(e){
         res.status(400).json({
             message:e.message

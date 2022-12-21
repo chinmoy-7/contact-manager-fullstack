@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const Contacts=require("../Models/contacts");
+const auth = require ("../Middlewear/authentication")
 
 
-router.get("/",async(req,res)=>{
+router.get("/",auth,async(req,res)=>{
     try{
-        const existing_contacts=await Contacts.find(req.user);
+        const existing_contacts=await Contacts.find();
         if(existing_contacts){
             res.status(200).json(existing_contacts)
         }
