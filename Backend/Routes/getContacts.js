@@ -3,7 +3,7 @@ const Contacts=require("../Models/contacts");
 const auth = require ("../Middlewear/authentication")
 
 
-router.get("/",auth,async(req,res)=>{
+router.get("/",async(req,res)=>{
     try{
         const existing_contacts=await Contacts.find();
         if(existing_contacts){
