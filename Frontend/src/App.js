@@ -10,16 +10,9 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 function App() {
   return (
     <Container>
-    {/* <BrowserRouter>
-    <Routes> */}
-      {/* <Route exact path="/" element={<Signin/>}/> */}
       <Sidebar/>
       <Navbar/>
-      <TotalContact/> 
-
-    {/* </Routes>
-    </BrowserRouter> */}
-      
+      <TotalContact/>
      
     </Container>
   );
@@ -27,7 +20,7 @@ function App() {
 
 export default App;
 const Container=styled.div`
-  margin-top:0px;
+
 `
 
 {/* */}

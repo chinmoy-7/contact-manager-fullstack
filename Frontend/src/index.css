@@ -33,6 +33,9 @@ body {
   .j-between{
     justify-content: space-between;
   }
+  .j-around{
+    justify-content: space-around;
+  }
   .gap{
     gap:5%;
   }
