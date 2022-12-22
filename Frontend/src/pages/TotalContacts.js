@@ -2,7 +2,8 @@ import './totalContact.css';
 import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Buttons from '../components/button'
-import axios from 'axios'
+import axios from 'axios';
+import Contacts from '../components/contacts';
 const TotalContact = ()=>{
     const [users,setUsers] = useState();
     const [reload,setReload]=useState(false);
@@ -44,7 +45,7 @@ const TotalContact = ()=>{
         <> 
           <Container className='parent'>
             <Buttons/>
-            
+            <Contacts/>
             <button onClick={getData}>Users</button>
             <button onClick={deleteUser}>Delete</button>
             {users?.data.map((ele,id)=>{
