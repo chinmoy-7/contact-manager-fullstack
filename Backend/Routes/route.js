@@ -10,12 +10,15 @@ const fs = require("fs");
 // })
 
 //Inserting the csv
-router.post("/upload",auth,upload.single("contact"),(req,res)=>{
+router.post("/upload",upload.single("contact"),(req,res)=>{
     try{
        
         csvtojson().fromFile("public/contact.csv")
         .then( (csvData)=>{
             // console.log(csvData)
+            for(i=0;i<csvData.length;i++){
+                csvData[i].useRef="abcd";
+            }
             contact.insertMany(csvData)
             .then( ()=>{
                  fs.unlink("public/contact.csv",(err)=>{console.log(err)})

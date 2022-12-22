@@ -8,11 +8,11 @@ import styled from "styled-components";
 function App() {
   return (
     <Container>
-      <Signup/>
-      {/* <Signin/> */}
-      {/* <Sidebar/> */}
-      {/* <Navbar/> */}
-      {/* <TotalContact/> */}
+      {/* <Signup/> */}
+      <Signin/>
+      <Sidebar/>
+      <Navbar/>
+      <TotalContact/>
     </Container>
   );
 }
