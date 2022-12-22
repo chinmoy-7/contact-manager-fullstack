@@ -10,9 +10,13 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 function App() {
   return (
     <Container>
-      <Sidebar/>
-      <Navbar/>
-      <TotalContact/>
+      <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Signin/>}/>
+        <Route path="/signup" element={<Signup/>}/>
+        <Route path="/TotalContacts" element={<TotalContact/>}/>
+      </Routes>
+      </BrowserRouter>
      
     </Container>
   );
@@ -23,4 +27,6 @@ const Container=styled.div`
 
 `
 
-{/* */}
+{/*<Sidebar/>
+      <Navbar/>
+      <TotalContact/> */}

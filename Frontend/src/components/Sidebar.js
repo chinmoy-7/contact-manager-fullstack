@@ -3,7 +3,13 @@ import Vector from "../assests/images/Vector.jpg";
 import dashboard from "../assests/images/dashboard.png";
 import line from "../assests/images/line.png";
 import logout from "../assests/images/logout.png";
+import { useNavigate } from "react-router-dom";
 function Sidebar() {
+  const navigate=useNavigate();
+   const handleLogout=()=>{
+        window.localStorage.clear();
+        navigate('/');
+   }
   return (
     <Container className="flex column j-between">
       <div >
@@ -33,13 +39,13 @@ function Sidebar() {
               </div>  
          
       </div>
-      <div className="flex gap logout">
-            <div>
+      <div className="flex gap logout" onClick={handleLogout}>
+            <div >
                 {" "}
                 <img src={logout} alt="logout"></img>
             </div>
             <div>
-                <p>Logout</p>
+                <p >Logout</p>
             </div>
       </div>
     </Container>
