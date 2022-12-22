@@ -14,10 +14,12 @@ const fs = require("fs");
 router.post("/upload",auth,upload.single('contact'),(req,res)=>{
       console.log(req.user)
     try{
-           console.log('test')
         csvtojson().fromFile("public/contact.csv")
         .then( (csvData)=>{
             // console.log(csvData)
+            for(let i=0;i<csvData.length;i++){
+                csvData[i].useRef=req.user;
+            }
             contact.insertMany(csvData)
             .then( ()=>{
                  fs.unlink("public/contact.csv",(err)=>{console.log(err)})
