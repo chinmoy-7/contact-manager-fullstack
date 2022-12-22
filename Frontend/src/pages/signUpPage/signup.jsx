@@ -9,15 +9,16 @@ import bottomright from "../Images/bottomright.svg";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const[confirmPassword,setConfirmPassword ] =useState("");
 //   const navigate = useNavigate();
 
   const handleOnSubmit = async (e) => {
-    // e.preventDefault();
-    // const formdata = new FormData(e.target);
-    // const email = formdata.get("email");
-    // const password = formdata.get("password");
-    let item ={email,password}
+    let item ={email,password,confirmPassword}
     console.warn(item)
+    if (password !== confirmPassword) {
+      alert(("Password does not match!"));
+      return;
+    }
     let result = await fetch("http://localhost:3004/register",{
       method:"POST",
       body:JSON.stringify(item),
@@ -35,10 +36,12 @@ const Signup = () => {
 
     if(result.errors) alert(result.errors[0].msg)
     if(result.status ==="failed" ){
-      alert(result.message)
+      alert(result.message);
+
     } 
     if(result.status === "Success" ){
-      alert("Sign Up Successfully completed !!")
+      alert("Sign Up Successfully completed !!");
+
     } 
   };
   return (
@@ -82,6 +85,17 @@ const Signup = () => {
             value={password}
               onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
+            required
+          />
+        </div>
+        <div className='signup-idbox'>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm Password"
             required
           />
         </div>
