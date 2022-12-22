@@ -2,50 +2,66 @@ import './totalContact.css';
 import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Buttons from '../components/button'
-import axios from 'axios'
+import axios from 'axios';
+import Contacts from '../components/contacts';
+import Sidebar from '../components/Sidebar';
+import Navbar from '../components/NavBar';
+import { useLocation, useNavigate } from 'react-router-dom';
 const TotalContact = ()=>{
-    const [users,setUsers] = useState();
-    const [reload,setReload]=useState(false);
-    const [contact,setContact]=useState([]);
+    const navigate=useNavigate();
+    const location=useLocation();
+    if(!localStorage.getItem('token')){
 
-    useEffect(()=>{
-        getData()
-    },[reload])
-
-    const handleContact = (e)=>{
-        const {value,checked}=e.target;
-        console.log(checked)
-        if(checked){
-            setContact([...contact,value])
-        }else{
-            setContact(contact.filter(e=>e!==value))
-        }
+        console.log(555)
+        navigate('/')
     }
+    if(location.pathname=='/'){
+        navigate('/TotalContacts')
+    }
+    // const [users,setUsers] = useState();
+    // const [reload,setReload]=useState(false);
+    // const [contact,setContact]=useState([]);
+
+    // useEffect(()=>{
+    //     getData()
+    // },[reload])
+
+    // const handleContact = (e)=>{
+    //     const {value,checked}=e.target;
+    //     console.log(checked)
+    //     if(checked){
+    //         setContact([...contact,value])
+    //     }else{
+    //         setContact(contact.filter(e=>e!==value))
+    //     }
+    // }
 
 
 
     //Fetching data
-    const getData=async ()=>{
-        const user = await axios.get("http://localhost:3004/getContacts").then((res)=>{
-          return res
-        });
-        setUsers(user);
-        console.log(users)
-    }
+    // const getData=async ()=>{
+    //     const user = await axios.get("http://localhost:3004/getContacts").then((res)=>{
+    //       return res
+    //     });
+    //     setUsers(user);
+    //     console.log(users)
+    // }
 
     //deleting the user  
-           const deleteUser=async ()=>{
-            const user = await axios.delete(`http://localhost:3004/del/${contact}`)
-            window.location.reload()
-            setReload(!reload)
+        //    const deleteUser=async ()=>{
+        //     const user = await axios.delete(`http://localhost:3004/del/${contact}`)
+        //     window.location.reload()
+        //     setReload(!reload)
            
-        }
+        // }
     return (    
         <> 
           <Container className='parent'>
+            <Sidebar/>
+            <Navbar/>
             <Buttons/>
-            
-            <button onClick={getData}>Users</button>
+            <Contacts/>
+            {/* <button onClick={getData}>Users</button>
             <button onClick={deleteUser}>Delete</button>
             {users?.data.map((ele,id)=>{
                 return(
@@ -61,7 +77,7 @@ const TotalContact = ()=>{
     
                 </div>
                 )
-            })}
+            })} */}
          </Container>  
         </>
     )

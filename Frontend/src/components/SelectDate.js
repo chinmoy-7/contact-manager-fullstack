@@ -28,7 +28,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
     background-image: url('../assests/images/downarrow.png') ;
-    margin-left:20%
+   
 }
 input[type="date"]{
     border: none;

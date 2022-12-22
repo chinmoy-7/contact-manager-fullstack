@@ -19,9 +19,12 @@ function Import() {
   const [file, setFile] = useState();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const headers = {"Authorization": localStorage.getItem("token") }
     let data = new FormData();
+
     data.append("contact", file[0]);
-    const res = axios.post("http://localhost:3004/upload", data);
+
+    const res = axios.post("http://localhost:3004/upload",data,{headers});
     // window.location.reload(false)
     setState(false);
     setuploaded(true);

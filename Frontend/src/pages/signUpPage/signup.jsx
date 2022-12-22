@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import {  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./signup.css";
 import dots from "../Images/dots.svg";
 import topleft from "../Images/topleft.svg";
@@ -10,9 +11,10 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const[confirmPassword,setConfirmPassword ] =useState("");
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleOnSubmit = async (e) => {
+    e.preventDefault();
     let item ={email,password,confirmPassword}
     console.warn(item)
     if (password !== confirmPassword) {
@@ -41,7 +43,7 @@ const Signup = () => {
     } 
     if(result.status === "Success" ){
       alert("Sign Up Successfully completed !!");
-
+       navigate('/')
     } 
   };
   return (

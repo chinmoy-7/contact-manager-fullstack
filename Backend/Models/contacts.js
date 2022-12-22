@@ -13,7 +13,7 @@ const ContactsSchema = new Schema({
     industry: {type:String, required:true},
     phone: {type:Number, required:true},
     country: {type:String, required:true},
-    useRef:{type: ObjectId}
+    useRef:{type: String}
 })
 
 //create collection/model using this schema
