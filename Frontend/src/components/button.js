@@ -6,7 +6,7 @@ import Delete from "./Delete";
 import Import from "./Import";
 import Export from "./Export";
 
-function Buttons() {
+function Buttons({contact}) {
   return (
     <Container className="flex j-between">
       <div className="flex gap j-center a-center">
@@ -14,7 +14,7 @@ function Buttons() {
         <div><Filter/></div>
       </div>
       <div className="flex gap j-center center">
-        <div><Delete/></div>
+        <div><Delete contact={contact}/></div>
         <div><Import/></div>
         <div><Export/></div>
       </div>
@@ -25,9 +25,10 @@ function Buttons() {
 export default Buttons;
 const Container=styled.div`
 position: absolute;
-width: 85%;
-height:80%;
-left: 16%;
+width: 82%;
+// background:red!important;
+height:10%;
+left: 18%;
 top:13%;
 padding:1rem;
 background: #FFFFFF;

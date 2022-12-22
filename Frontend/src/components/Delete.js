@@ -4,17 +4,26 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import deleteIcon from "../assests/images/delete.png"
 import check from "../assests/images/Check.png";
+import axios from 'axios';
 
-function Delete() {
+function Delete({contact}) {
   const [state,setState]=useState(false);
   const [deleted,setDeleted]=useState(false);
-  const handleOk=()=>{
+  const [reload,setReload]=useState(false)
+  
+  
+  const deleteUser=async ()=>{
+    const headers = {"Authorization": localStorage.getItem("token") }
+    const user = await axios.delete(`http://localhost:3004/del/${contact}`,{headers})
     setState(false);
     setDeleted(true);
     setTimeout(()=>{
           setDeleted(false);
     },2000)
-  }
+    window.location.reload()
+    setReload(!reload)
+   
+}
   return (
     <>
     <Container className='flex a-center j-center gap' onClick={()=>{setState(!state)}}>
@@ -32,7 +41,7 @@ function Delete() {
               <p style={{"fontSize":"16px","color":"#2DA5FC",}}>Sure you want to delete this Contact?</p>
               <div className='flex a-center j-center' id="delete-confirm">
                 <button onClick={()=>{setState(false)}}>Cancel</button>
-                <p onClick={()=>{handleOk()}}>OK</p>
+                <p onClick={()=>{deleteUser()}}>OK</p>
               </div>
         </div>
         </Dialog>}

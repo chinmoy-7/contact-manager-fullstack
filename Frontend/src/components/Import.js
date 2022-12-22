@@ -1,8 +1,6 @@
 import Importicon from "../assests/images/import.png";
 import styled from "styled-components";
-import Contacts from "./contacts";
-import TotalContact from "../pages/TotalContacts";
-import Background from "./backgound";
+
 import check from "../assests/images/Check.png";
 import fileicon from "../assests/images/file.png"
 import { useState } from "react";
@@ -25,7 +23,7 @@ function Import() {
     data.append("contact", file[0]);
 
     const res = axios.post("http://localhost:3004/upload",data,{headers});
-    // window.location.reload(false)
+    window.location.reload(false)
     setState(false);
     setuploaded(true);
     setTimeout(()=>{
