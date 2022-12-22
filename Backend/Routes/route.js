@@ -35,7 +35,7 @@ router.post("/upload",upload.single("contact"),(req,res)=>{
     }
 })
 
-router.delete("/del/:id",async (req,res)=>{
+router.delete("/del/:id",auth,async (req,res)=>{
     try{
         let {id}=req.params;
         id=id.split(",")
