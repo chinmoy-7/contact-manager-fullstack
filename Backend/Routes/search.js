@@ -1,17 +1,19 @@
 const router = require("express").Router();
 const Contacts=require("../Models/contacts")
+const auth=require("../Middlewear/authentication")
 
-router.get("/:email",async(req,res)=>{
-    try{
-        const Contact=await Contacts.findOne(req.params.email);
-        if(Contact){
-          if(Contact[0].user==req.user){
-            res.status(200).json(Contact);
-          }
-        }
+router.get("/:email",auth,async(req,res)=>{
+    try{ 
+      var email = req.params.email;
+      var name = email.substring(0, email.lastIndexOf("@"));
+      console.log(name);
+        const Contact=await Contacts.findOne({email:{$regex:name,$options:'i'}});
         
-    }catch{
-            res.status(404).json("email not found");
+          
+            res.status(200).json(Contact);
+        
+    }catch(e){
+            res.status(404).json(e.message);
     }
 })
 

@@ -7,7 +7,8 @@ const ObjectId = Schema.ObjectId;
 //create schema
 const userSchema = new Schema({
     email:{type:String , required:true,unique:true},
-    password:{type:String , required:true},    
+    password:{type:String , required:true}, 
+   
 })
 
 //create collection/model using this schema
