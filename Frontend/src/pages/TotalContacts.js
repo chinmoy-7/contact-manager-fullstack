@@ -1,10 +1,12 @@
-import './totalContact.css'
+import './totalContact.css';
 import {useEffect, useState} from 'react';
+import styled from 'styled-components';
+import Buttons from '../components/button'
 import axios from 'axios'
 const TotalContact = ()=>{
     const [users,setUsers] = useState();
     const [reload,setReload]=useState(false);
-    const [contact,setContact]=useState([])
+    const [contact,setContact]=useState([]);
 
     useEffect(()=>{
         getData()
@@ -39,8 +41,10 @@ const TotalContact = ()=>{
            
         }
     return (    
-        <>  
-
+        <> 
+          <Container className='parent'>
+            <Buttons/>
+            
             <button onClick={getData}>Users</button>
             <button onClick={deleteUser}>Delete</button>
             {users?.data.map((ele,id)=>{
@@ -58,8 +62,19 @@ const TotalContact = ()=>{
                 </div>
                 )
             })}
-           
+         </Container>  
         </>
     )
 }
 export default TotalContact;
+
+const Container=styled.div`
+   .parent{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    border:1px solid black;
+    background: #FFFFFF;
+   }
+
+`
