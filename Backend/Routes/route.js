@@ -10,15 +10,14 @@ const fs = require("fs");
 // })
 
 //Inserting the csv
-router.post("/upload",upload.single("contact"),(req,res)=>{
+
+router.post("/upload",auth,upload.single('contact'),(req,res)=>{
+      console.log(req.user)
     try{
-       
+           console.log('test')
         csvtojson().fromFile("public/contact.csv")
         .then( (csvData)=>{
             // console.log(csvData)
-            for(i=0;i<csvData.length;i++){
-                csvData[i].useRef="abcd";
-            }
             contact.insertMany(csvData)
             .then( ()=>{
                  fs.unlink("public/contact.csv",(err)=>{console.log(err)})
@@ -38,27 +37,8 @@ router.post("/upload",upload.single("contact"),(req,res)=>{
     }
 })
 
-router.get("/get",async (req,res)=>{
-    try{
-        const users =await  contact.find();
-        res.status(200).json(users);
-    }catch(e){
-        res.status(400).json({
-            message:e.message
-        })
-    }
-})
 
-router.get("/get",async (req,res)=>{
-    try{
-        const users =await  contact.find();
-        res.status(200).json(users);
-    }catch(e){
-        res.status(400).json({
-            message:e.message
-        })
-    }
-})
+
 
 router.delete("/del/:id",auth,async (req,res)=>{
     try{
