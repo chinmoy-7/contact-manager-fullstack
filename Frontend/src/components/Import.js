@@ -60,10 +60,7 @@ function Import() {
 
         {uploaded && (
           <Dialog className="flex column a-center j-center gap">
-            <div
-              id="import-icons"
-              className="flex column a-center  gap"
-            >
+            <div id="import-icons" className="flex column a-center  gap">
               <div id="icon-background" >
                 <img src={check} />
               </div>

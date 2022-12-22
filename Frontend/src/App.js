@@ -7,14 +7,17 @@ import Navbar from "./components/NavBar";
 import styled from "styled-components";
 function App() {
   return (
-    <>
+    <Container>
       <Signup/>
       {/* <Signin/> */}
-      {/* <Sidebar/>
-      <Navbar/>
-      <TotalContact/> */}
-    </>
+      {/* <Sidebar/> */}
+      {/* <Navbar/> */}
+      {/* <TotalContact/> */}
+    </Container>
   );
 }
 
 export default App;
+const Container=styled.div`
+
+`
