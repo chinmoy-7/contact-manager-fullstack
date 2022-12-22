@@ -10,7 +10,7 @@ const fs = require("fs");
 // })
 
 //Inserting the csv
-router.post("/upload",upload.single("contact"),(req,res)=>{
+router.post("/upload",auth,upload.single("contact"),(req,res)=>{
     try{
        
         csvtojson().fromFile("public/contact.csv")
@@ -28,6 +28,28 @@ router.post("/upload",upload.single("contact"),(req,res)=>{
                 })
             })
         })
+    }catch(e){
+        res.status(400).json({
+            message:e.message
+        })
+    }
+})
+
+router.get("/get",async (req,res)=>{
+    try{
+        const users =await  contact.find();
+        res.status(200).json(users);
+    }catch(e){
+        res.status(400).json({
+            message:e.message
+        })
+    }
+})
+
+router.get("/get",async (req,res)=>{
+    try{
+        const users =await  contact.find();
+        res.status(200).json(users);
     }catch(e){
         res.status(400).json({
             message:e.message

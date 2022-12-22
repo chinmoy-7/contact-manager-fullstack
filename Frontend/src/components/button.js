@@ -26,7 +26,7 @@ export default Buttons;
 const Container=styled.div`
 position: absolute;
 width: 85%;
-height:91%;
+height:80%;
 left: 16%;
 top:13%;
 padding:1rem;
