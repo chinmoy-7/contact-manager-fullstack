@@ -8,8 +8,8 @@ import styled from "styled-components";
 function App() {
   return (
     <Container>
-      {/* <Signup/> */}
-      <Signin/>
+      <Signup/>
+      {/* <Signin/> */}
       {/* <Sidebar/> */}
       {/* <Navbar/> */}
       {/* <TotalContact/> */}
@@ -19,5 +19,5 @@ function App() {
 
 export default App;
 const Container=styled.div`
-  margin-top:0px;
+
 `
