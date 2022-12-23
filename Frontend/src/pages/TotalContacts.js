@@ -44,7 +44,7 @@ const TotalContact = () => {
       
       const getData=async ()=>{
         const headers = {"Authorization": localStorage.getItem("token") }
-        const user = await axios.get("http://localhost:3004/getContacts",{headers})
+        const user = await axios.get("https://contact-manager-0ahz.onrender.com/getContacts",{headers})
         setUsers(user.data)
         
         if(user.data.length!=0)
@@ -73,7 +73,7 @@ const handleContact = (e)=>{
     // console.log(email)
     const headers = {"Authorization": localStorage.getItem("token") }
     if(e.key=="Enter"){
-      const user = await axios.get(`http://localhost:3004/search/${email}`,{headers})
+      const user = await axios.get(`https://contact-manager-0ahz.onrender.com/search/${email}`,{headers})
       console.log(user.data)
       setUsers(user.data)
       // console.log(users[0])
@@ -86,7 +86,7 @@ const handleContact = (e)=>{
    }
    const getAdmin = async ()=>{
     const headers = {"Authorization": localStorage.getItem("token") }
-    const admins = await axios.get(`http://localhost:3004/getAdmin`,{headers})
+    const admins = await axios.get(`https://contact-manager-0ahz.onrender.com/getAdmin`,{headers})
     setAdmin(admins)
     // console.log(admins.data)
    }

@@ -21,7 +21,7 @@ const Signup = () => {
       alert(("Password does not match!"));
       return;
     }
-    let result = await fetch("http://localhost:3004/register",{
+    let result = await fetch("https://contact-manager-0ahz.onrender.com/register",{
       method:"POST",
       body:JSON.stringify(item),
       headers:{
