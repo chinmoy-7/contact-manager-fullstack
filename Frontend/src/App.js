@@ -8,7 +8,7 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 
 function App() {
   return (
-    <Container>
+    // <Container>
       <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Signin/>}/>
@@ -17,7 +17,7 @@ function App() {
       </Routes>
       </BrowserRouter>
      
-    </Container>
+    // </Container>
   );
 }
 
