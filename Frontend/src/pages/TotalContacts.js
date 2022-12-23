@@ -1,18 +1,47 @@
-import './totalContact.css';
-import {useEffect, useState} from 'react';
-import styled from 'styled-components';
-import Buttons from '../components/button'
-import axios from 'axios'
-const TotalContact = ()=>{
-    const [users,setUsers] = useState();
-    const [reload,setReload]=useState(false);
-    const [contact,setContact]=useState([]);
+import "./totalContact.css";
+import { useEffect, useState } from "react";
+import Buttons from "../components/button";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
+import Vector from "../assests/images/Vector.jpg";
+import dashboard from "../assests/images/dashboard.png";
+import line from "../assests/images/line.png";
+import logout from "../assests/images/logout.png";
+import profile from "../assests/images/profile.png";
+import search from "../assests/images/search.png";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./totalContact.css";
+const TotalContact = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [state,setState]=useState(false);
+  const [reload,setReload]=useState(false);
+  const [contact,setContact]=useState([]);
 
-    useEffect(()=>{
-        getData()
-    },[reload])
+  if (!localStorage.getItem("token")) {
+    console.log(555);
+    navigate("/");
+  }
+  if (location.pathname == "/") {
+    navigate("/TotalContacts");
+  }
 
-    const handleContact = (e)=>{
+  const [users,setUsers]=useState();
+ useEffect(()=>{
+     getData();
+ },[])
+ 
+  
+      const getData=async ()=>{
+        const headers = {"Authorization": localStorage.getItem("token") }
+        const user = await axios.get("http://localhost:3004/getContacts",{headers})
+        setUsers(user.data)
+        if(user.data.length!=0)
+        setState(true)
+        console.log(users)
+    }
+
+const handleContact = (e)=>{
         const {value,checked}=e.target;
         console.log(checked)
         if(checked){
@@ -21,60 +50,97 @@ const TotalContact = ()=>{
             setContact(contact.filter(e=>e!==value))
         }
     }
-
-
-
-    //Fetching data
-    const getData=async ()=>{
-        const user = await axios.get("http://localhost:3004/getContacts").then((res)=>{
-          return res
-        });
-        setUsers(user);
-        console.log(users)
-    }
-
-    //deleting the user  
-           const deleteUser=async ()=>{
-            const user = await axios.delete(`http://localhost:3004/del/${contact}`)
-            window.location.reload()
-            setReload(!reload)
-           
-        }
-    return (    
-        <> 
-          <Container className='parent'>
-            <Buttons/>
-            
-            <button onClick={getData}>Users</button>
-            <button onClick={deleteUser}>Delete</button>
-            {users?.data.map((ele,id)=>{
-                return(
-                    <div className="contact-container" key={id}>
-                    <input type="checkbox" value={ele._id}  onChange={(e)=>{handleContact(e)}}/>
-                    <p>{ele.name}</p>
-                    <p>{ele.designation}</p>
-                    <p>{ele.company}</p>
-                    <p>{ele.industry}</p>
-                    <p>{ele.email}</p>
-                    <p>{ele.phone}</p>
-                    <p>{ele.country}</p>
-    
-                </div>
-                )
-            })}
-         </Container>  
-        </>
-    )
-}
-export default TotalContact;
-
-const Container=styled.div`
-   .parent{
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    border:1px solid black;
-    background: #FFFFFF;
+    const handleLogout=()=>{
+        window.localStorage.clear();
+        navigate('/');
    }
+  return (
+    <>
+      <div className="total-container">
+        <div id="container-left">
+          <div id="total-sidebar">
+            <div id="sidebar-left" className="gap">
+              <h2 style={{ color: "#2DA5FC", fontSize: "34px" }}>Logo</h2>
+              <div id="dashboard" className="gap">
+                <img src={Vector} alt="dashboard"></img>
+                <p>DashBoard</p>
+              </div>
+              <div id="total-contacts" className="gap">
+                <img src={dashboard}></img>
+                <p>TotalContact</p>
+                <img src={line} alt="TotalContact"></img>
+              </div>
+            </div>
+            <div id="sidebar-right">
+              <div id="logout" className="gap" onClick={handleLogout} style={{"cursor":"pointer"}}>
+                <img src={logout} alt="Logout"></img>
+                <p>Logout</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="container-right">
+          <div id="header">
+            <div id="header-left">
+              <h2>Total Contact</h2>
+              <div id="search-container">
+                <img src={search}></img>
+                <input
+                  id="search"
+                  type="text"
+                  placeholder="Search by email...."
+                ></input>
+              </div>
+            </div>
+            <div id="header-right">
+              <div id="logo-left">
+                <img src={profile}></img>
+              </div>
+              <div id="logo-right">
+                <h2>Adam Levine</h2>
+                <p>Super Admin</p>
+              </div>
+            </div>
+          </div>
 
-`
+          <div id="main-table">
+            <table class="table ">
+              <thead class="table-primary">
+                <tr>
+                  <th scope="col">#</th>
+                  <th>Name</th>
+                  <th>Designation</th>
+                  <th>Company</th>
+                  <th>Industry</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>Country</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {state && users.map((item,id)=>{
+                    return(
+                        <tr>
+                            <td><input type="checkbox" value={item?._id} onClick={handleContact}/></td>
+                            <td>{state&&item?.name}</td>
+                            <td>{state&&item?.designation}</td>
+                            <td>{state&&item?.company}</td>
+                            <td>{state&&item?.industry}</td>
+                            <td>{state&&item?.email}</td>
+                            <td>{state&&item?.phone}</td>
+                            <td>{state&&item?.country}</td>
+                        </tr>
+                    )
+                })}
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <Buttons contact={contact}/>
+    </>
+  );
+};
+export default TotalContact;

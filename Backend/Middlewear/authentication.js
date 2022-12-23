@@ -1,8 +1,8 @@
 var jwt=require('jsonwebtoken');
 const { JWT_SECRET } = require("../keys")
 const express = require("express");
-const router = express.Router();
-router.use("/", async (req, res, next) => {
+
+const Auth=(async (req, res, next) => {
 
     if(req.headers.authorization){
         const token=req.headers.authorization;
@@ -29,4 +29,4 @@ router.use("/", async (req, res, next) => {
 )
 
 
-module.exports=router
+module.exports=Auth;

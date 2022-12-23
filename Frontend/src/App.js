@@ -1,3 +1,4 @@
+
 import styled from "styled-components";
 import Signin from './pages/signInPage/signin';
 import Signup from "./pages/signUpPage/signup";
@@ -21,9 +22,3 @@ function App() {
 }
 
 export default App;
-const Container=styled.div`
-`
-
-{/*<Sidebar/>
-      <Navbar/>
-      <TotalContact/> */}

@@ -37,7 +37,7 @@ router.post(
         // Store hash in your password DB.
         if (err) {
           return res.status(500).json({
-            status: "Failed",
+            status: "failed",
             message: err.message,
           });
         }
@@ -54,7 +54,7 @@ router.post(
       });
     } catch (e) {
       res.json({
-        status: "Failed",
+        status: "failed",
         message: e.message,
       });
     }

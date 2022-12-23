@@ -1,8 +1,6 @@
 import Importicon from "../assests/images/import.png";
 import styled from "styled-components";
-import Contacts from "./contacts";
-import TotalContact from "../pages/TotalContacts";
-import Background from "./backgound";
+
 import check from "../assests/images/Check.png";
 import fileicon from "../assests/images/file.png"
 import { useState } from "react";
@@ -19,10 +17,13 @@ function Import() {
   const [file, setFile] = useState();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const headers = {"Authorization": localStorage.getItem("token") }
     let data = new FormData();
+
     data.append("contact", file[0]);
-    const res = axios.post("http://localhost:3004/upload", data);
-    // window.location.reload(false)
+
+    const res = axios.post("http://localhost:3004/upload",data,{headers});
+    window.location.reload(false)
     setState(false);
     setuploaded(true);
     setTimeout(()=>{
@@ -60,10 +61,7 @@ function Import() {
 
         {uploaded && (
           <Dialog className="flex column a-center j-center gap">
-            <div
-              id="import-icons"
-              className="flex column a-center  gap"
-            >
+            <div id="import-icons" className="flex column a-center  gap">
               <div id="icon-background" >
                 <img src={check} />
               </div>

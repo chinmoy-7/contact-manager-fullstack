@@ -1,16 +1,21 @@
 import axios from "axios";
-import { useState } from "react";
-// import { Link } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate,Link } from "react-router-dom";
+
 import "./signin.css";
 import React from "react";
 import dots from "../Images/dots.svg";
 import topleft from "../Images/topleft.svg";
 import bottomright from "../Images/bottomright.svg";
 
+
+
 const Signin = () => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const formdata = new FormData(e.target);
@@ -27,6 +32,7 @@ const Signin = () => {
           window.localStorage.setItem("token", res.data.token);
           alert("SignIn Sucessfully!");
           console.log(email);
+          navigate('/TotalContacts')
         }
       })
       .catch((err) => {
@@ -34,9 +40,11 @@ const Signin = () => {
         alert("Enter Valid Details");
       });
   };
-
+  
   return (
-    <> <div className ="main-container">
+    <> 
+
+    <div className ="main-container">
       <div className="outer-container">
         <img src={topleft} alt="topleft" className="topleft" />
 
@@ -78,15 +86,16 @@ const Signin = () => {
                 />
               </div>
               <div>
+                
                 <button id="signin-button" type="submit">
                   Sign In
                 </button>
               </div>
               <div className="signupbox">
-                {/* <Link to="/signup">Sign Up</Link> */}
-                <button id="signin-button" type="submit">
+                <Link to="/signup">Sign Up</Link>
+                {/* <button id="signin-button" type="submit">
                   Sign Up
-                </button>
+                </button> */}
               </div>
             </form>
           </div>
