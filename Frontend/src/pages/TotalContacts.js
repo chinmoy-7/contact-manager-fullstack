@@ -16,6 +16,7 @@ const TotalContact = () => {
   const location = useLocation();
   const [state,setState]=useState(false);
   const [reload,setReload]=useState(false);
+  const [dim,setDim]=useState(false)
   const [contact,setContact]=useState([]);
 
   if (!localStorage.getItem("token")) {
@@ -29,6 +30,7 @@ const TotalContact = () => {
   const [users,setUsers]=useState();
  useEffect(()=>{
      getData();
+     setDim(false)
  },[])
  
   
@@ -54,9 +56,12 @@ const handleContact = (e)=>{
         window.localStorage.clear();
         navigate('/');
    }
+   const handleButton=()=>{
+      setDim(!dim);
+   }
   return (
     <>
-      <div className="total-container">
+      <div className={`total-container ${dim&&"dim"}`}>
         <div id="container-left">
           <div id="total-sidebar">
             <div id="sidebar-left" className="gap">
@@ -139,7 +144,9 @@ const handleContact = (e)=>{
           </div>
         </div>
       </div>
+      <div onClick={()=>{handleButton()}}>
       <Buttons contact={contact}/>
+      </div>
     </>
   );
 };
