@@ -5,7 +5,9 @@ const auth = require ("../Middlewear/authentication")
 
 router.get("/",auth,async(req,res)=>{
     try{
-        const existing_contacts=await Contacts.find({useRef:req.user});
+        // const existing_contacts=await Contacts.find({useRef:req.user});
+        const existing_contacts=await Contacts.find({useRef:req.user}).sort({ email : -1});
+        // console.log(existing_contacts)
        
         if(existing_contacts){
             // console.log(existing_contacts)

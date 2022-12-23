@@ -1,5 +1,5 @@
 import "./totalContact.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Buttons from "../components/button";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,53 +13,46 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Edit from '../assests/images/Layer 42.png'
 import Delete from '../assests/images/Layer 17.png'
 import "./totalContact.css";
+import ContactContext from "../context/ContactContext";
 const TotalContact = () => {
+  const {contact,getData,setContact}=useContext(ContactContext)
   const navigate = useNavigate();
   const location = useLocation();
-  const [state,setState]=useState(false);
-  const [reload,setReload]=useState(false);
+
   const [dim,setDim]=useState(false)
-  const [contact,setContact]=useState([]);
+  const [selectcontact,setselectContact]=useState([]);
+ 
   const [admin,setAdmin]=useState();
 
   if (!localStorage.getItem("token")) {
     console.log(555);
     navigate("/");
   }
-  if (location.pathname == "/") {
+  if (location.pathname === "/") {
     navigate("/TotalContacts");
   }
 
   const [users,setUsers]=useState();
 
  useEffect(()=>{
+
+  //  console.log(contact)
      getData();
+    //  console.log(contact)
      getAdmin()
      setDim(false)
    
  },[])
 
- 
- 
-      
-      const getData=async ()=>{
-        const headers = {"Authorization": localStorage.getItem("token") }
-        const user = await axios.get("https://contact-manager-0ahz.onrender.com/getContacts",{headers})
-        setUsers(user.data)
-        
-        if(user.data.length!=0)
-        setState(true)
-        console.log(users)
-    }
 
-const handleContact = (e)=>{
-        const {value,checked}=e.target;
-        console.log(checked)
+const handleContact = (e,itemId)=>{
+        const {checked}=e.target;
         if(checked){
-            setContact([...contact,value])
+            setselectContact([...selectcontact,itemId])
         }else{
-            setContact(contact.filter(e=>e!==value))
+            setselectContact(selectcontact.filter(e=>e!==itemId))
         }
+        console.log(selectcontact)
     }
     const handleLogout=()=>{
         window.localStorage.clear();
@@ -72,15 +65,14 @@ const handleContact = (e)=>{
    const handleSearch = async(email,e)=>{
     // console.log(email)
     const headers = {"Authorization": localStorage.getItem("token") }
-    if(e.key=="Enter"){
+    if(e.key==="Enter"){
       const user = await axios.get(`https://contact-manager-0ahz.onrender.com/search/${email}`,{headers})
-      console.log(user.data)
-      setUsers(user.data)
-      // console.log(users[0])
+      setContact(user?.data)
+      console.log(users[0])
     }
    }
    const handleResetSearch = (e)=>{
-      if(e==""){
+      if(e===""){
         getData();
       }
    }
@@ -93,7 +85,7 @@ const handleContact = (e)=>{
 
   return (
     <>
-      <div className={`total-container ${dim&&"dim"}`}>
+      <div className={`total-container `}>
         <div id="container-left">
           <div id="total-sidebar">
             <div id="sidebar-left" className="gap">
@@ -158,19 +150,21 @@ const handleContact = (e)=>{
                 </tr>
               </thead>
               <tbody>
-                {state && users.map((item,id)=>{
+                
+                {/* {console.log(contact)} */}
+                {contact&&contact.map((item,id)=>{
+                  // console.log(tick)
                     return(
                         <tr key={id}>
-                            <td><input type="checkbox" value={item?._id} onClick={handleContact}/></td>
-                            <td>{state&&item?.name}</td>
-                            <td>{state&&item?.designation}</td>
-                            <td>{state&&item?.company}</td>
-                            <td>{state&&item?.industry}</td>
+                            <td><input type="checkbox"  onClick={(e)=>{handleContact(e,item?._id)}}/></td>
+                            <td>{contact&&item?.name}</td>
+                            <td>{contact&&item?.designation}</td>
+                            <td>{contact&&item?.company}</td>
+                            <td>{contact&&item?.industry}</td>
                             
-                            
-                            <td id="tooltip "data-toggle="tooltip" data-placement="top" title={state&&item?.email} >{state&&item?.email}</td>
-                            <td>{state&&item?.phone}</td>
-                            <td>{state&&item?.country}</td>
+                            <td id="tooltip "data-toggle="tooltip" data-placement="top" title={contact&&item?.email} >{contact&&item?.email}</td>
+                            <td>{contact&&item?.phone}</td>
+                            <td>{contact&&item?.country}</td>
                             <td>
                               <img src={Delete}style={{"marginRight":"20px"}} alt="delete"/>
                               <img src={Edit}  alt="edit"/>
@@ -186,7 +180,7 @@ const handleContact = (e)=>{
         </div>
       </div>
       <div onClick={()=>{handleButton()}}>
-      <Buttons contact={contact}/>
+      <Buttons selectContact={selectcontact}/>
       </div>
     </>
   );
