@@ -5,7 +5,7 @@ const auth=require("../Middlewear/authentication")
 router.get("/:email",auth,async(req,res)=>{
     try{ 
       var email = req.params.email;
-      var name = email.substring(0, email.lastIndexOf("@"));
+      
       // console.log(email);
         const user=await Contacts.find({email:{$regex:email,$options:'i'},useRef:req.user});
         console.log(user)
