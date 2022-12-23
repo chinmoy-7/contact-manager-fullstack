@@ -63,18 +63,18 @@ const handleContact = (e)=>{
               <h2 style={{ color: "#2DA5FC", fontSize: "34px" }}>Logo</h2>
               <div id="dashboard" className="gap">
                 <img src={Vector} alt="dashboard"></img>
-                <p>DashBoard</p>
+                <p style={{"margin":"10px","fontSize":"20px"}}>DashBoard</p>
               </div>
               <div id="total-contacts" className="gap">
                 <img src={dashboard}></img>
-                <p>TotalContact</p>
+                <p style={{"marginTop":"14px","fontSize":"20px"}}>TotalContact</p>
                 <img src={line} alt="TotalContact"></img>
               </div>
             </div>
             <div id="sidebar-right">
               <div id="logout" className="gap" onClick={handleLogout} style={{"cursor":"pointer"}}>
                 <img src={logout} alt="Logout"></img>
-                <p>Logout</p>
+                <p style={{"margin":"10px"}}>Logout</p>
               </div>
             </div>
           </div>
