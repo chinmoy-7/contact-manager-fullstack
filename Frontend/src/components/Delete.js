@@ -14,7 +14,7 @@ function Delete({contact}) {
   
   const deleteUser=async ()=>{
     const headers = {"Authorization": localStorage.getItem("token") }
-    const user = await axios.delete(`http://localhost:3004/del/${contact}`,{headers})
+    const user = await axios.delete(`https://contact-manager-0ahz.onrender.com/del/${contact}`,{headers})
     setState(false);
     setDeleted(true);
     setTimeout(()=>{

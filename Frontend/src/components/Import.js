@@ -22,7 +22,7 @@ function Import() {
 
     data.append("contact", file[0]);
 
-    const res = axios.post("http://localhost:3004/upload",data,{headers});
+    const res = axios.post("https://contact-manager-0ahz.onrender.com/upload",data,{headers});
     window.location.reload(false)
     setState(false);
     setuploaded(true);
