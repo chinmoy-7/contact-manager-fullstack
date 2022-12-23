@@ -55,8 +55,10 @@ const handleContact = (e,itemId)=>{
         console.log(selectcontact)
     }
     const handleLogout=()=>{
-        window.localStorage.clear();
-        navigate('/');
+      localStorage.removeItem("token");
+      navigate('/');
+      alert("Logged Out");
+      document.location.reload()
    }
    const handleButton=()=>{
       setDim(!dim);
