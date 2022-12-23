@@ -6,7 +6,7 @@ const Auth=(async (req, res, next) => {
 
     if(req.headers.authorization){
         const token=req.headers.authorization;
-        console.log(token)
+        // console.log(token)
         if(token){
             jwt.verify(token,JWT_SECRET,async(err,decoded)=>{
                 if(err){

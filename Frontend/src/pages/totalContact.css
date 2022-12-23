@@ -127,6 +127,7 @@
 #main-table{
     margin-top:90px;
 }
-#tooltip{
-    
+
+tr:nth-child(even){
+    background-color: #B2DFFF ;
 }

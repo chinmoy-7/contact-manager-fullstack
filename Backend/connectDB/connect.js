@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const connectDB=()=>{
     mongoose.set("strictQuery",false);
-    mongoose.connect("mongodb://127.0.0.1:27017/contact").then((res)=>{
+    mongoose.connect("mongodb+srv://root:root123@cluster0.yfnqkmr.mongodb.net/?retryWrites=true&w=majority").then((res)=>{
             console.log("Connected to DB")
     });
 }

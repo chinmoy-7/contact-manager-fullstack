@@ -6,10 +6,11 @@ const route  = require("./Routes/route")
 const connectDB=require("./connectDB/connect");
 
 const login = require("./Routes/login")
-
+const getAdmin = require("./Routes/getAdmin")
 
 const getContacts=require("./Routes/getContacts")
-const searchContacts=require("./Routes/search")
+const searchContacts=require("./Routes/search");
+const { get } = require("mongoose");
 
 //Use and config
 const app=express();
@@ -24,6 +25,7 @@ app.use("/",route)
 
 app.use("/getContacts",getContacts);
 app.use("/search",searchContacts);
+app.use("/getAdmin",getAdmin);
 
 
 app.listen(process.env.PORT,async ()=>{
