@@ -115,6 +115,7 @@ Form{
   margin-right: auto;
   border: 1px solid #E2E2E2;
   border-radius: 5px;
+  padding-left: 25px
 }
 
 #signup_password{
@@ -124,6 +125,7 @@ Form{
   margin-right: auto;
   border: 1px solid #E2E2E2;
   border-radius: 5px;
+  padding-left: 25px
 }
 
 
