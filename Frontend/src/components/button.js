@@ -6,7 +6,7 @@ import Delete from "./Delete";
 import Import from "./Import";
 import Export from "./Export";
 
-function Buttons({contact}) {
+function Buttons({selectContact}) {
   return (
     <Container className="flex j-between">
       <div className="flex gap j-center a-center">
@@ -14,7 +14,7 @@ function Buttons({contact}) {
         <div><Filter/></div>
       </div>
       <div className="flex gap j-center center">
-        <div><Delete contact={contact}/></div>
+        <div><Delete selectContact={selectContact}/></div>
         <div><Import/></div>
         <div><Export/></div>
       </div>

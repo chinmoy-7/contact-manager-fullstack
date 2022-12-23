@@ -1,29 +1,19 @@
 import Deleteicon from '../assests/images/delete.png';
 import Downarrow from '../assests/images/downarrow.png'
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import deleteIcon from "../assests/images/delete.png"
 import check from "../assests/images/Check.png";
 import axios from 'axios';
+import ContactContext from '../context/ContactContext';
 
-function Delete({contact}) {
+function Delete({selectContact}) {
   const [state,setState]=useState(false);
   const [deleted,setDeleted]=useState(false);
   const [reload,setReload]=useState(false)
+  const {deleteUser,settick} = useContext(ContactContext)
   
   
-  const deleteUser=async ()=>{
-    const headers = {"Authorization": localStorage.getItem("token") }
-    const user = await axios.delete(`https://contact-manager-0ahz.onrender.com/del/${contact}`,{headers})
-    setState(false);
-    setDeleted(true);
-    setTimeout(()=>{
-          setDeleted(false);
-    },2000)
-    window.location.reload()
-    setReload(!reload)
-   
-}
   return (
     <>
     <Container className='flex a-center j-center gap' onClick={()=>{setState(!state)}}>
@@ -41,7 +31,11 @@ function Delete({contact}) {
               <p style={{"fontSize":"16px","color":"#2DA5FC",}}>Sure you want to delete this Contact?</p>
               <div className='flex a-center j-center' id="delete-confirm">
                 <button onClick={()=>{setState(false)}}>Cancel</button>
-                <p onClick={()=>{deleteUser()}}>OK</p>
+                <p onClick={()=>{
+                  
+                  deleteUser(selectContact)
+                  setState(false)
+                  }}>OK</p>
               </div>
         </div>
         </Dialog>}

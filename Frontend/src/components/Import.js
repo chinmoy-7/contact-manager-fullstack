@@ -3,10 +3,12 @@ import styled from "styled-components";
 
 import check from "../assests/images/Check.png";
 import fileicon from "../assests/images/file.png"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import ContactContext from "../context/ContactContext";
 
 function Import() {
+  const {getData}=useContext(ContactContext)
   const [state, setState] = useState(false);
   const [uploaded, setuploaded] = useState(false);
   const handleState = () => {
@@ -23,12 +25,15 @@ function Import() {
     data.append("contact", file[0]);
 
     const res = axios.post("https://contact-manager-0ahz.onrender.com/upload",data,{headers});
-    window.location.reload(false)
+    // window.location.reload(false)
     setState(false);
     setuploaded(true);
+
     setTimeout(()=>{
       setuploaded(false);
+      getData();
     },2000)
+    
   };
 
   return (
