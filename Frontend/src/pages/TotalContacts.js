@@ -10,13 +10,17 @@ import logout from "../assests/images/logout.png";
 import profile from "../assests/images/profile.png";
 import search from "../assests/images/search.png";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Edit from '../assests/images/Layer 42.png'
+import Delete from '../assests/images/Layer 17.png'
 import "./totalContact.css";
 const TotalContact = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [state,setState]=useState(false);
   const [reload,setReload]=useState(false);
+  const [dim,setDim]=useState(false)
   const [contact,setContact]=useState([]);
+  const [admin,setAdmin]=useState();
 
   if (!localStorage.getItem("token")) {
     console.log(555);
@@ -27,15 +31,22 @@ const TotalContact = () => {
   }
 
   const [users,setUsers]=useState();
+
  useEffect(()=>{
      getData();
+     getAdmin()
+     setDim(false)
+   
  },[])
+
  
-  
+ 
+      
       const getData=async ()=>{
         const headers = {"Authorization": localStorage.getItem("token") }
         const user = await axios.get("http://localhost:3004/getContacts",{headers})
         setUsers(user.data)
+        
         if(user.data.length!=0)
         setState(true)
         console.log(users)
@@ -54,9 +65,35 @@ const handleContact = (e)=>{
         window.localStorage.clear();
         navigate('/');
    }
+   const handleButton=()=>{
+      setDim(!dim);
+   }
+
+   const handleSearch = async(email,e)=>{
+    // console.log(email)
+    const headers = {"Authorization": localStorage.getItem("token") }
+    if(e.key=="Enter"){
+      const user = await axios.get(`http://localhost:3004/search/${email}`,{headers})
+      console.log(user.data)
+      setUsers(user.data)
+      // console.log(users[0])
+    }
+   }
+   const handleResetSearch = (e)=>{
+      if(e==""){
+        getData();
+      }
+   }
+   const getAdmin = async ()=>{
+    const headers = {"Authorization": localStorage.getItem("token") }
+    const admins = await axios.get(`http://localhost:3004/getAdmin`,{headers})
+    setAdmin(admins)
+    // console.log(admins.data)
+   }
+
   return (
     <>
-      <div className="total-container">
+      <div className={`total-container ${dim&&"dim"}`}>
         <div id="container-left">
           <div id="total-sidebar">
             <div id="sidebar-left" className="gap">
@@ -89,6 +126,8 @@ const handleContact = (e)=>{
                   id="search"
                   type="text"
                   placeholder="Search by email...."
+                  onChange={(e)=>{handleResetSearch(e.target.value)}}
+                  onKeyDown={(e)=>{handleSearch(e.target.value,e)}}
                 ></input>
               </div>
             </div>
@@ -97,15 +136,15 @@ const handleContact = (e)=>{
                 <img src={profile}></img>
               </div>
               <div id="logo-right">
-                <h2>Adam Levine</h2>
+                <h2>{admin?.data}</h2>
                 <p>Super Admin</p>
               </div>
             </div>
           </div>
 
           <div id="main-table">
-            <table class="table ">
-              <thead class="table-primary">
+            <table className="table ">
+              <thead className="table-primary">
                 <tr>
                   <th scope="col">#</th>
                   <th>Name</th>
@@ -121,15 +160,22 @@ const handleContact = (e)=>{
               <tbody>
                 {state && users.map((item,id)=>{
                     return(
-                        <tr>
+                        <tr key={id}>
                             <td><input type="checkbox" value={item?._id} onClick={handleContact}/></td>
                             <td>{state&&item?.name}</td>
                             <td>{state&&item?.designation}</td>
                             <td>{state&&item?.company}</td>
                             <td>{state&&item?.industry}</td>
-                            <td>{state&&item?.email}</td>
+                            
+                            
+                            <td id="tooltip "data-toggle="tooltip" data-placement="top" title={state&&item?.email} >{state&&item?.email}</td>
                             <td>{state&&item?.phone}</td>
                             <td>{state&&item?.country}</td>
+                            <td>
+                              <img src={Delete}style={{"marginRight":"20px"}} alt="delete"/>
+                              <img src={Edit}  alt="edit"/>
+                            </td>
+                      
                         </tr>
                     )
                 })}
@@ -139,7 +185,9 @@ const handleContact = (e)=>{
           </div>
         </div>
       </div>
+      <div onClick={()=>{handleButton()}}>
       <Buttons contact={contact}/>
+      </div>
     </>
   );
 };
