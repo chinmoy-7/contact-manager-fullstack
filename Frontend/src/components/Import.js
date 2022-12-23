@@ -137,12 +137,12 @@ const Container2 = styled.div`
   }
 `;
 const Dialog = styled.div`
-  position: absolute;
-  width: 300px;
-  height: 250px;
-  left: 35%;
-  top: 30%;
-  background: #ffffff;
-  border-radius: 10px;
-  border: 2px solid black;
+position: absolute;
+width: 307px;
+height: 290px;
+left: 35%;
+top: 100%;
+background: #ffffff;
+border-radius: 10px;
+border: 2px solid black;
 `;
