@@ -10,6 +10,8 @@ import logout from "../assests/images/logout.png";
 import profile from "../assests/images/profile.png";
 import search from "../assests/images/search.png";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Edit from '../assests/images/Layer 42.png'
+import Delete from '../assests/images/Layer 17.png'
 import "./totalContact.css";
 const TotalContact = () => {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ const TotalContact = () => {
   const [reload,setReload]=useState(false);
   const [dim,setDim]=useState(false)
   const [contact,setContact]=useState([]);
+  const [Tooltip,setTooltip]=useState('')
 
   if (!localStorage.getItem("token")) {
     console.log(555);
@@ -31,13 +34,15 @@ const TotalContact = () => {
  useEffect(()=>{
      getData();
      setDim(false)
+   
  },[])
  
-  
+      
       const getData=async ()=>{
         const headers = {"Authorization": localStorage.getItem("token") }
         const user = await axios.get("http://localhost:3004/getContacts",{headers})
         setUsers(user.data)
+        
         if(user.data.length!=0)
         setState(true)
         console.log(users)
@@ -58,6 +63,9 @@ const handleContact = (e)=>{
    }
    const handleButton=()=>{
       setDim(!dim);
+   }
+   const handleTooltip=()=>{
+       setTooltip(users.email)
    }
   return (
     <>
@@ -132,9 +140,13 @@ const handleContact = (e)=>{
                             <td>{state&&item?.designation}</td>
                             <td>{state&&item?.company}</td>
                             <td>{state&&item?.industry}</td>
-                            <td>{state&&item?.email}</td>
+                            
+                            
+                            <td id="tooltip "data-toggle="tooltip" data-placement="top" title={state&&item?.email} >{state&&item?.email}</td>
                             <td>{state&&item?.phone}</td>
                             <td>{state&&item?.country}</td>
+                            <td><img src={Delete} alt="delete"></img></td>
+                            <td ><img src={Edit} style={{"marginRight":"20px"}} alt="edit"/></td>
                         </tr>
                     )
                 })}
