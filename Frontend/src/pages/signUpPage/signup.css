@@ -134,6 +134,7 @@ Form{
   height: 6vh;
   margin-left: auto;
   margin-right: auto;
+  padding-left:25px;
   border: 1px solid #E2E2E2;
   border-radius: 5px;
 }
