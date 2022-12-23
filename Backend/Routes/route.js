@@ -12,7 +12,7 @@ const fs = require("fs");
 //Inserting the csv
 
 router.post("/upload",auth,upload.single('contact'),(req,res)=>{
-      console.log(req.user)
+    //   console.log(req.user)
     try{
         csvtojson().fromFile("public/contact.csv")
         .then( (csvData)=>{
